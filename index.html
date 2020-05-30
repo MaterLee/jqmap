@@ -108,18 +108,21 @@
             arrUsePos[pos] = 1;
         }
         // 2. change trap piece, only use lei, pai, lian
-        // 2.1 get candidate pos
-        var arrCandidate = new Array();
-        var j = 0;
-        for(var i=0;i<layout.length;i++){
-            if(layout[i] == LEI || layout[i] == PAI || layout[i] == LIAN){arrCandidate[j++] = i;}
+        var trap_pos = layout[21] == QI ? 23 : 21;
+        if (layout[trap_pos] != LEI && layout[trap_pos] != PAI && layout[trap_pos] != LIAN)
+        {
+            // 2.1 get candidate pos
+            var arrCandidate = new Array();
+            var j = 0;
+            for(var i=0;i<layout.length;i++){
+                if(layout[i] == LEI || layout[i] == PAI || layout[i] == LIAN){arrCandidate[j++] = i;}
+            }
+            // 2.2 exchange trap
+            var exchange_pos = random_select(arrCandidate);
+            var tmp = layout[exchange_pos];
+            layout[exchange_pos] = layout[trap_pos];
+            layout[trap_pos] = tmp;
         }
-        // 2.2 exchange trap
-        trap_pos = layout[21] == QI ? 23 : 21;
-        var exchange_pos = random_select(arrCandidate);
-        var tmp = layout[exchange_pos];
-        layout[exchange_pos] = layout[trap_pos];
-        layout[trap_pos] = tmp;
         return layout;
     }
     </script>
